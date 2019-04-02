@@ -1,0 +1,30 @@
+<p>
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#add_product" aria-expanded="false" aria-controls="add_product">
+    Dodaj produkt
+  </button>
+</p>
+<div class="collapse" id="add_product">
+  <form action="{{ url_for('add_product') }}" method="POST">
+    <div class="form-group">
+      <label for="name_field">Nazwa produktu:</label>
+      <input class="form-control" name="name" id="name_field" placeholder="Nazwa">
+    </div>
+    <div class="form-group">
+      <label for="calories_field">Kalorie</label>
+      <input class="form-control" name="calories" id="calories_field" placeholder="Kalorie">
+    </div>
+    <div class="form-group">
+      <label for="protein_field">Białko</label>
+      <input class="form-control" name="protein" id="protein_field" placeholder="Białko">
+    </div>
+    <div class="form-group">
+      <label for="carbohydrates_field">Węglowodany</label>
+      <input class="form-control" name="carbohydrates" id="carbohydrates_field" placeholder="Węglowodany">
+    </div>
+    <div class="form-group">
+      <label for="fat_field">Tłuszcz</label>
+      <input class="form-control" name="fat" id="fat_field" placeholder="Tłuszcz">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
