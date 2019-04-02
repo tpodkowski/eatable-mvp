@@ -22,4 +22,10 @@ def add_product():
   
   products = Product.query.all()
   return redirect("/")
-  
+
+@app.route('/products/<int:id>', methods=['POST'])
+def remove_product(id):
+  product = Product.query.filter_by(id=id).first()
+  db.session.delete(product)
+  db.session.commit()
+  return redirect("/")
