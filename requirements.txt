@@ -6,6 +6,7 @@ Click==7.0
 Django==2.2rc1
 Flask==1.0.2
 Flask-Cors==3.0.7
+Flask-SQLAlchemy==2.3.2
 gunicorn==19.9.0
 idna==2.8
 isort==4.3.10
