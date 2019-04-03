@@ -5,11 +5,17 @@ class Product(db.Model):
   
   id = db.Column(db.Integer, primary_key=True)
   name = db.Column(db.String(80), index=True, unique=False, nullable=False)
-  calories = db.Column(db.Integer, index=False, unique=False, nullable=False)
-  protein = db.Column(db.Float, index=False, unique=False, nullable=False)
-  carbohydrates	= db.Column(db.Float, index=False, unique=False, nullable=False)
-  fat	= db.Column(db.Float, index=False, unique=False, nullable=False)
+  calories = db.Column(db.Integer, nullable=False)
+  protein = db.Column(db.Float, nullable=False)
+  carbohydrates	= db.Column(db.Float, nullable=False)
+  fat	= db.Column(db.Float, nullable=False)
+  recipes = db.relationship('Recipe', lazy=True)
 
-  def __repr__(self):
-    return '<Name %r>' % self.name
-  
+
+class Recipe(db.Model):
+  __tablename__ = 'recipes'
+
+  id = db.Column(db.Integer, primary_key=True)
+  name = db.Column(db.String(80), index=True, unique=False, nullable=False)
+  description = db.Column(db.String(), index=True, unique=False, nullable=False)
+  products = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)  
