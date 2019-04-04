@@ -5,7 +5,7 @@ db = SQLAlchemy()
 
 
 def create_app():
-    app = Flask(__name__, instance_relative_config=False)
+    app = Flask(__name__)
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config["SQLALCHEMY_ECHO"] = True
 

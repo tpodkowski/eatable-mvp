@@ -8,7 +8,12 @@ from .models import Product, Recipe, db
 def entry():
   products = Product.query.all()
   recipes = Recipe.query.all()
-  return render_template("products.html", products=products, recipes=recipes, title="Show Products")
+  return render_template("index.html", products=products, recipes=recipes)
+
+@app.route('/products', methods=['GET'])
+def get_products():
+  products = Product.query.all()
+  return render_template("./products/products.html", products=products)
 
 @app.route('/products', methods=['POST'])
 def add_product():
@@ -36,7 +41,7 @@ def remove_product(id):
 def get_recipes():
   recipes = Recipe.query.all()
   products = Product.query.all()
-  return render_template("recipes.html", recipes=recipes, products=products, title="Show recipes")
+  return render_template("./recipes/recipes.html", recipes=recipes, products=products, title="Show recipes")
 
 @app.route('/recipes', methods=['POST'])
 def add_recipe():
