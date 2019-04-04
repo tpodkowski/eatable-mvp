@@ -7,10 +7,10 @@
       <div class="list-group" role="tablist">
         {% for recipe in recipes %}
           <a
-            class="list-group-item list-group-item-action"
-            id="recipe-{{ recipe.name }}-{{ recipe.id }}-list"
+            class="list-group-item list-group-item-action {{ 'active' if loop.index == 1}}"
+            id="recipe-{{ recipe.id }}-list"
             data-toggle="list"
-            href="#recipe-{{ recipe.name }}-{{ recipe.id }}"
+            href="#recipe-{{ recipe.id }}"
             role="tab"
           >
             {{ recipe.name }}
@@ -19,19 +19,33 @@
       </div>
     </div>
     <div class="col-8">
-      <div class="tab-content" id="nav-tabContent">
+      <div class="tab-content">
         {% for recipe in recipes %}
-          <div
-            class="tab-pane fade show"
-            id="recipe-{{ recipe.name }}-{{ recipe.id }}"
-            role="tabpanel"
-          >
-          {{ recipe.description }}
+        <div
+          class="tab-pane fade show {{ 'active' if loop.index == 1}}"
+          id="recipe-{{ recipe.id }}"
+          role="tabpanel"
+        >
+          <h2>{{ recipe.name }}</h2>
+          <p>
+            <strong>Składniki:</strong>
+            <ul>
+              {% for product in recipe.products %}
+                <li>{{ product.name }}</li>
+              {% endfor %}
+            </ul>
+          </p>
+          <p>
+            {{ recipe.description }}
+          </p>
           </div>
         {% endfor %}
       </div>
     </div>
   </div>
+
+  {% include './recipes/add_recipe.html' %}
+
 </div>
 
 {% endblock %}

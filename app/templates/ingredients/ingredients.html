@@ -1,0 +1,39 @@
+{% extends "./layouts/layout.html" %}
+
+{% block content %}
+
+<div class="container">
+  <div>
+    <p class="lead">
+      Wybierz produkty, które masz w swojej lodówce, a otrzymasz przepis na danie, które z nich przygotujesz:
+    </p>
+    <form action="{{ url_for('get_recipes_by_ingredients') }}" method="POST">
+      <div class="form-check">
+        <ul>
+          {% for product in products %}
+            <li>
+              <input
+                type="checkbox"
+                class="form-check-input"
+                name="products"
+                value="{{ product.id }}"
+                id="{{ product.id }}_field"
+              />
+              <label for="{{ product.id }}_field">{{ product.name }}</label>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <button class="btn btn-primary">
+        Wyszukaj przepisy
+      </button>
+    </form>
+  </div>
+  <div>
+    {% for recipe in recipes %}
+      <p>{{ recipe.name }}</p>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

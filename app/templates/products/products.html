@@ -1,34 +1,37 @@
 {% extends "./layouts/layout.html" %}
 
 {% block content %}
-  <h1>Produkty:</h1>
   <div class="container">
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th scope="col">Nazwa</th>
-          <th scope="col">Kalorie</th>
-          <th scope="col">Białko</th>
-          <th scope="col">Węglowodany</th>
-          <th scope="col">Tłuszcze</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for product in products %}
+    <h1>Produkty:</h1>
+    <div>
+      <table class="table table-bordered">
+        <thead>
           <tr>
-            <td scope="row">{{ product.name }}</td>
-            <td>{{ product.calories }}kcal</td>
-            <td>{{ product.protein }}g</td>
-            <td>{{ product.carbohydrates }}g</td>
-            <td>{{ product.fat }}g</td>
-            <td>
-              <form action="{{ url_for('remove_product', id=product.id) }}" method="POST">
-                <button type="submit" class="btn btn-danger">Usuń</button>
-              </form>
+            <th scope="col">Nazwa</th>
+            <th scope="col">Kalorie</th>
+            <th scope="col">Białko</th>
+            <th scope="col">Węglowodany</th>
+            <th scope="col">Tłuszcze</th>
+            <th scope="col"></th>
           </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {% for product in products %}
+            <tr>
+              <td scope="row">{{ product.name }}</td>
+              <td>{{ product.calories }}kcal</td>
+              <td>{{ product.protein }}g</td>
+              <td>{{ product.carbohydrates }}g</td>
+              <td>{{ product.fat }}g</td>
+              <td>
+                <form action="{{ url_for('remove_product', id=product.id) }}" method="POST">
+                  <button type="submit" class="btn btn-danger">Usuń</button>
+                </form>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% include './products/add_product_form.html' %}
   </div>
 {% endblock %}

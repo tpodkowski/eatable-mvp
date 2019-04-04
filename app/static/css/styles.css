@@ -25,8 +25,17 @@ body::before {
   font-family: 'Pacifico', cursive;
   font-size: 8rem;
   color: #f1f1f1;
+  z-index: -1;
 }
 
+.container {
+  margin-top: 56px;
+}
+
+.navbar-dark .navbar-toggler {
+  border: 0;
+  color: #FFFFFF;
+}
 
 .main-page {
   display: flex;

@@ -8,7 +8,7 @@ from .models import Product, Recipe, db
 def entry():
   products = Product.query.all()
   recipes = Recipe.query.all()
-  return render_template("index.html", products=products, recipes=recipes, template="body-background")
+  return render_template("index.html", products=products, recipes=recipes, title="Eatable", template="body-background")
 
 @app.route('/products', methods=['GET'])
 def get_products():
@@ -25,23 +25,24 @@ def add_product():
     fat=request.form['fat']
   )
   db.session.add(product)
-  db.session.commit()
-  
-  return redirect("/")
+  db.session.commit()  
+  return redirect("/products")
+
 
 @app.route('/products/<int:id>', methods=['POST'])
 def remove_product(id):
   product = Product.query.filter_by(id=id).first()
   db.session.delete(product)
   db.session.commit()
-  return redirect("/")
+  return redirect("/products")
 
 
 @app.route('/recipes', methods=['GET'])
 def get_recipes():
-  recipes = Recipe.query.all()
   products = Product.query.all()
-  return render_template("./recipes/recipes.html", recipes=recipes, products=products, title="Show recipes")
+  recipes = Recipe.query.join(Recipe.products)
+  return render_template("./recipes/recipes.html", recipes=recipes, products=products, title="Eatable - Produkty")
+
 
 @app.route('/recipes', methods=['POST'])
 def add_recipe():
@@ -57,4 +58,18 @@ def add_recipe():
   db.session.add(recipe)
   db.session.commit()
 
-  return redirect("/")
+  return redirect("/recipes")
+
+
+@app.route('/ingredients', methods=['GET', 'POST'])
+def get_recipes_by_ingredients():
+  products = Product.query.all()
+  recipes = []
+
+  if request.method == 'POST':
+    product_ids = request.form.getlist('products')
+    recipes = Recipe.query.filter(Recipe.products.any(Product.id.in_(product_ids))).all()
+  else:
+    products = Product.query.all()
+
+  return render_template('./ingredients/ingredients.html', products=products, recipes=recipes, title="Eatable - Moja Lodówka")
