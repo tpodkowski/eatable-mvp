@@ -1,0 +1,21 @@
+{% extends "./layouts/layout.html" %}
+
+{% block content %}
+<div class="container">
+  <div>
+    <h2>{{ recipe.name }}</h2>
+    <p>
+      <strong>Składniki:</strong>
+      <ul>
+        {% for product in recipe.products %}
+        <li>{{ product.name }}</li>
+        {% endfor %}
+      </ul>
+    </p>
+    <p>
+      {{ recipe.description }}
+    </p>
+  </div>
+</div>
+
+{% endblock %}

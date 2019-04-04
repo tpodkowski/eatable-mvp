@@ -15,6 +15,7 @@ def get_products():
   products = Product.query.all()
   return render_template("./products/products.html", products=products)
 
+
 @app.route('/products', methods=['POST'])
 def add_product():
   product = Product(
@@ -59,6 +60,16 @@ def add_recipe():
   db.session.commit()
 
   return redirect("/recipes")
+
+
+@app.route('/recipes/<int:id>', methods=['GET'])
+def get_recipe(id):
+  products = Product.query.all()
+  recipe = Recipe.query.get(id)
+  if recipe is not None:
+    return render_template("./recipes/recipe.html", recipe=recipe, products=products, title="Eatable - {{  }}")
+  else:
+    return redirect('/recipes')
 
 
 @app.route('/ingredients', methods=['GET', 'POST'])

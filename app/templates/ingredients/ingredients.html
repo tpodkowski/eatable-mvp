@@ -34,7 +34,7 @@
     <p class="lead">Wyniki wyszukiwania:</p>
     {% for recipe in recipes %}
       <div class="list-group">
-        <a href="/recipe/{{ recipe.id }}" class="list-group-item list-group-item-action">
+        <a href="{{ url_for('get_recipe', id=recipe.id)}}" class="list-group-item list-group-item-action">
           {{ recipe.name }}
         </a>
       </div>
