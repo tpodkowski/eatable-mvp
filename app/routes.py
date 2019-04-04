@@ -8,7 +8,7 @@ from .models import Product, Recipe, db
 def entry():
   products = Product.query.all()
   recipes = Recipe.query.all()
-  return render_template("index.html", products=products, recipes=recipes)
+  return render_template("index.html", products=products, recipes=recipes, template="body-background")
 
 @app.route('/products', methods=['GET'])
 def get_products():
