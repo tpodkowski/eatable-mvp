@@ -1,12 +1,14 @@
-from flask import request, render_template, redirect
-from flask import current_app as app, jsonify
-from .models import db, Product
+from flask import current_app as app
+from flask import jsonify, redirect, render_template, request
+
+from .models import Product, Recipe, db
 
 
 @app.route('/', methods=['GET'])
 def entry():
   products = Product.query.all()
-  return render_template("products.html", products=products, title="Show Products")
+  recipes = Recipe.query.all()
+  return render_template("products.html", products=products, recipes=recipes, title="Show Products")
 
 @app.route('/products', methods=['POST'])
 def add_product():
@@ -20,7 +22,6 @@ def add_product():
   db.session.add(product)
   db.session.commit()
   
-  products = Product.query.all()
   return redirect("/")
 
 @app.route('/products/<int:id>', methods=['POST'])
@@ -28,4 +29,27 @@ def remove_product(id):
   product = Product.query.filter_by(id=id).first()
   db.session.delete(product)
   db.session.commit()
+  return redirect("/")
+
+
+@app.route('/recipes', methods=['GET'])
+def get_recipes():
+  recipes = Recipe.query.all()
+  products = Product.query.all()
+  return render_template("recipes.html", recipes=recipes, products=products, title="Show recipes")
+
+@app.route('/recipes', methods=['POST'])
+def add_recipe():
+  product_ids = request.form.getlist('products')
+  products = list(map(lambda id: Product.query.get(id), product_ids))
+
+  recipe = Recipe(
+    name = request.form['name'],
+    description = request.form['description'],
+    products = products
+  )
+
+  db.session.add(recipe)
+  db.session.commit()
+
   return redirect("/")

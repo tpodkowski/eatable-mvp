@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+  <p>
+    <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#add_recipe" aria-expanded="true" aria-controls="add_recipe">
+      Dodaj przepis
+    </button>
+  </p>
+  <div class="collapse show" id="add_recipe">
+    <form action="{{ url_for('add_recipe') }}" method="POST">
+      <div class="form-group">
+        <label for="name_field">Nazwa:</label>
+        <input class="form-control" name="name" id="name_field" placeholder="Nazwa">
+      </div>
+      <div class="form-group">
+        <label for="description_field">Opis:</label>
+        <textarea class="form-control" name="description" id="description_field"></textarea>
+      </div>
+      <div class="form-group">
+        {% for product in products %}
+          <div>
+            <input
+              type="checkbox"
+              class="form-check-input"
+              name="products"
+              value="{{ product.id }}"
+              id="{{ product.name }}-{{ product.id }}_field"
+            />
+            <label for="{{ product.name }}-{{ product.id }}_field">{{ product.name }}</label>
+          </div>
+          {% endfor %}
+        </div>
+      <button type="submit" class="btn btn-primary">Dodaj przepis</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
