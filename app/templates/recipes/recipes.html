@@ -2,6 +2,8 @@
 
 {% block content %}
 <div class="container">
+  {% include './recipes/add_recipe.html' %}
+  
   <div class="row">
     <div class="col-4">
       <div class="list-group" role="tablist">
@@ -43,9 +45,6 @@
       </div>
     </div>
   </div>
-
-  {% include './recipes/add_recipe.html' %}
-
 </div>
 
 {% endblock %}

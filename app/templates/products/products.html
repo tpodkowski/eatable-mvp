@@ -2,8 +2,10 @@
 
 {% block content %}
   <div class="container">
-    <h1>Produkty:</h1>
-    <div>
+    {% include './products/add_product_form.html' %}
+    
+    <p class="lead">Produkty</p>
+    <div class="col-md-12">
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -32,6 +34,5 @@
         </tbody>
       </table>
     </div>
-    {% include './products/add_product_form.html' %}
   </div>
 {% endblock %}

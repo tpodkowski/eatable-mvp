@@ -24,16 +24,22 @@
           {% endfor %}
         </ul>
       </div>
-      <button class="btn btn-primary">
+      <button class="btn btn-block btn-outline-primary">
         Wyszukaj przepisy
       </button>
     </form>
   </div>
-  <div>
+
+  <p>
+    <p class="lead">Wyniki wyszukiwania:</p>
     {% for recipe in recipes %}
-      <p>{{ recipe.name }}</p>
+      <div class="list-group">
+        <a href="/recipe/{{ recipe.id }}" class="list-group-item list-group-item-action">
+          {{ recipe.name }}
+        </a>
+      </div>
     {% endfor %}
-  </div>
+  </p>
 </div>
 
 {% endblock %}

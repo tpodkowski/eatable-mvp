@@ -1,30 +1,35 @@
-<div id="add_recipe">
-  <form action="{{ url_for('add_recipe') }}" method="POST">
-    <div class="form-group">
-      <label for="name_field">Nazwa przepisu:</label>
-      <input class="form-control" name="name" id="name_field">
-    </div>
-    <div class="form-group">
-      <label for="description_field">Opis:</label>
-      <textarea class="form-control" name="description" id="description_field"></textarea>
-    </div>
-    <div class="form-check">
-      <strong>Produkty</strong>
-      <ul>
-        {% for product in products %}
-          <li>
-            <input
-              type="checkbox"
-              class="form-check-input"
-              name="products"
-              value="{{ product.id }}"
-              id="{{ product.id }}_field"
-            />
-            <label for="{{ product.id }}_field">{{ product.name }}</label>
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
-    <button type="submit" class="btn btn-primary">Dodaj przepis</button>
-  </form>
-</div>
+<p id="add_recipe">
+  <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#addRecipe" aria-expanded="false" aria-controls="addRecipe">
+    Dodaj przepis
+  </button>
+  <div class="col-md-12 collapse" id="addRecipe">
+    <form action="{{ url_for('add_recipe') }}" method="POST">
+      <div class="form-group">
+        <label for="name_field">Nazwa przepisu</label>
+        <input class="form-control" name="name" id="name_field">
+      </div>
+      <div class="form-group">
+        <label for="description_field">Opis</label>
+        <textarea class="form-control" name="description" id="description_field"></textarea>
+      </div>
+      <div>
+        <strong>Produkty</strong>
+        <ul>
+          {% for product in products %}
+            <li>
+              <input
+                type="checkbox"
+                class="form-check-input"
+                name="products"
+                value="{{ product.id }}"
+                id="{{ product.id }}_field"
+              />
+              <label for="{{ product.id }}_field">{{ product.name }}</label>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <button type="submit" class="btn btn-block btn-outline-primary">Dodaj przepis</button>
+    </form>
+  </div>
+</p>
