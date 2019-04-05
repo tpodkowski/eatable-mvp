@@ -31,12 +31,21 @@
   </div>
 
   <p>
-    <p class="lead">Wyniki wyszukiwania:</p>
+    {% if recipes %}
+      <p class="lead">Wyniki wyszukiwania:</p>
+    {% endif %}
+
     {% for recipe in recipes %}
-      <div class="list-group">
-        <a href="{{ url_for('get_recipe', id=recipe.id)}}" class="list-group-item list-group-item-action">
-          {{ recipe.name }}
-        </a>
+      <div class="row">
+        <div class="col-md-2">
+          <img src="{{ recipe.url }}" class="img-thumbnail">
+        </div>
+        <div class="col-md-10">
+          <a href="{{ url_for('get_recipe', id=recipe.id)}}">
+            <p class="lead">{{ recipe.name }}</p>
+          </a>
+          <p>{{ recipe.description[0:50] }}...</p>
+        </div>
       </div>
     {% endfor %}
   </p>

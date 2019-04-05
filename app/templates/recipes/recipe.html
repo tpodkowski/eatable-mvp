@@ -4,6 +4,9 @@
 <div class="container">
   <div>
     <h2>{{ recipe.name }}</h2>
+    {% if recipe.url %}
+      <img src="{{ recipe.url }}" class="img-thumbnail">
+    {% endif %}
     <p>
       <strong>Składniki:</strong>
       <ul>

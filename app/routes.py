@@ -53,6 +53,7 @@ def add_recipe():
   recipe = Recipe(
     name = request.form['name'],
     description = request.form['description'],
+    url = request.form['image_url'],
     products = products
   )
 
@@ -66,8 +67,10 @@ def add_recipe():
 def get_recipe(id):
   products = Product.query.all()
   recipe = Recipe.query.get(id)
+  title = "Eatable - " + recipe.name
+  
   if recipe is not None:
-    return render_template("./recipes/recipe.html", recipe=recipe, products=products, title="Eatable - {{  }}")
+    return render_template("./recipes/recipe.html", recipe=recipe, products=products, title=title)
   else:
     return redirect('/recipes')
 

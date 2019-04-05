@@ -28,7 +28,10 @@
           id="recipe-{{ recipe.id }}"
           role="tabpanel"
         >
-          <h2>{{ recipe.name }}</h2>
+          <a href="{{ url_for('get_recipe', id=recipe.id)}}">
+            <h2>{{ recipe.name }}</h2>
+          </a>
+          <img src="{{ recipe.url }}" class="img-thumbnail">
           <p>
             <strong>Składniki:</strong>
             <ul>
