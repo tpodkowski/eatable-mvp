@@ -4,8 +4,8 @@
 <div class="container">
   <div>
     <h2>{{ recipe.name }}</h2>
-    {% if recipe.url %}
-      <img src="{{ recipe.url }}" class="img-thumbnail">
+    {% if recipe.image_url %}
+      <img src="{{ recipe.image_url }}" class="img-thumbnail">
     {% endif %}
     <p>
       <strong>Składniki:</strong>
@@ -18,6 +18,9 @@
     <p>
       {{ recipe.description }}
     </p>
+    <div>
+      Źródło: <a href={{ recipe.url }} target="_blank">{{ recipe.url }}</a>
+    </div>
   </div>
 </div>
 

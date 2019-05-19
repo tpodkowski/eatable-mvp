@@ -53,7 +53,7 @@ def add_recipe():
   recipe = Recipe(
     name = request.form['name'],
     description = request.form['description'],
-    url = request.form['image_url'],
+    image_url = request.form['image_url'],
     products = products
   )
 

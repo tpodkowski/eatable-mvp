@@ -4,6 +4,25 @@
 
 <div class="container">
   <div>
+    <p>
+      {% if recipes %}
+        <p class="lead">Wyniki wyszukiwania:</p>
+      {% endif %}
+  
+      {% for recipe in recipes %}
+        <div class="row">
+          <div class="col-md-2">
+            <img src="{{ recipe.image_url }}" class="img-thumbnail">
+          </div>
+          <div class="col-md-10">
+            <a href="{{ url_for('get_recipe', id=recipe.id)}}">
+              <p class="lead">{{ recipe.name }}</p>
+            </a>
+            <p>{{ recipe.description[0:50] }}...</p>
+          </div>
+        </div>
+      {% endfor %}
+    </p>
     <p class="lead">
       Wybierz produkty, które masz w swojej lodówce, a otrzymasz przepis na danie, które z nich przygotujesz:
     </p>
@@ -29,26 +48,6 @@
       </button>
     </form>
   </div>
-
-  <p>
-    {% if recipes %}
-      <p class="lead">Wyniki wyszukiwania:</p>
-    {% endif %}
-
-    {% for recipe in recipes %}
-      <div class="row">
-        <div class="col-md-2">
-          <img src="{{ recipe.url }}" class="img-thumbnail">
-        </div>
-        <div class="col-md-10">
-          <a href="{{ url_for('get_recipe', id=recipe.id)}}">
-            <p class="lead">{{ recipe.name }}</p>
-          </a>
-          <p>{{ recipe.description[0:50] }}...</p>
-        </div>
-      </div>
-    {% endfor %}
-  </p>
 </div>
 
 {% endblock %}

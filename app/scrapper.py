@@ -1,4 +1,6 @@
 import requests
+import json
+import os
 from bs4 import BeautifulSoup
 
 def get_title(soup):
@@ -13,10 +15,11 @@ def get_ingredients(soup):
   ingredients = []
   lis = soup.find("ul", { "class": "ingredient-ul" }).find_all("li", { "class": "ingredient-li" })
   for li in lis:
-    ingredients.append({
-      "name": li.find("div", { "class": "ingredient-name" }).get_text(),
-      "quantity": li.find("span", { "class": "quantity" }).get_text(),
-    })
+    ingredients.append(li.find("div", { "class": "ingredient-name" }).get_text())
+    # ingredients.append({
+    #   "name": li.find("div", { "class": "ingredient-name" }).get_text(),
+    #   "quantity": li.find("span", { "class": "quantity" }).get_text(),
+    # })
   return ingredients
 
 
@@ -34,30 +37,37 @@ def fetch_recipes():
   recipes = []
   error_count = 0
 
-  for page in range(PAGES_TO_FETCH):
-    url_response = requests.get("https://www.przepisy.pl/przepisy/posilek/obiad?page=" + str(page))
-    page_soup = BeautifulSoup(url_response.text, 'html.parser')
-    recipes_elements = page_soup.find_all("div", { "class": "recipe-box-5-container" })
-    
-    for recipe in recipes_elements:
-      recipe_url = recipe["data-recipeurl"]
-      response = requests.get(recipe_url)
-      recipe_soup = BeautifulSoup(response.text, 'html.parser')
+  has_recipes = os.path.isfile('recipes.dat')
+
+  if not has_recipes:
+    for page in range(PAGES_TO_FETCH):
+      url_response = requests.get(os.environ["OBIAD_URL"] + str(page))
+      page_soup = BeautifulSoup(url_response.text, 'html.parser')
+      recipes_elements = page_soup.find_all("div", { "class": "recipe-box-5-container" })
       
-      try:
-        recipe_obj = {
-          "url": recipe_url,
-          "name": get_title(recipe_soup),
-          "image_url": get_image_url(recipe_soup),
-          "ingredients": get_ingredients(recipe_soup),
-          "description": get_description(recipe_soup)
-        }
-        recipes.append(recipe_obj)
-      except:
-        error_count += 1
-        print("[ERROR] " + recipe_url)
-
-  print("\nSuccesfuly added: " + str(len(recipes)) + ", " + str(error_count) + " skipped\n")
+      for recipe in recipes_elements:
+        recipe_url = recipe["data-recipeurl"]
+        response = requests.get(recipe_url)
+        recipe_soup = BeautifulSoup(response.text, 'html.parser')
+        
+        try:
+          recipe_obj = {
+            "url": recipe_url,
+            "name": get_title(recipe_soup),
+            "image_url": get_image_url(recipe_soup),
+            "ingredients": get_ingredients(recipe_soup),
+            "description": get_description(recipe_soup)
+          }
+          recipes.append(recipe_obj)
+        except:
+          error_count += 1
+          print("[ERROR] " + recipe_url)    
+    
+    with open('recipes.dat', 'w') as json_file:
+      json.dump(recipes, json_file)
+    print("\nSuccesfuly added: " + str(len(recipes)) + ", " + str(error_count) + " skipped\n")
+  else:
+    recipes = json.loads(open('recipes.dat', 'r').read())
+  
+  print(recipes)
   return recipes
-
-# print(fetch_recipes())

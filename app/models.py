@@ -7,8 +7,9 @@ products = db.Table('products',
 
 class Recipe(db.Model):
   id = db.Column(db.Integer, primary_key=True)
-  name = db.Column(db.String(80), index=True, unique=False, nullable=False)
+  name = db.Column(db.String(), index=True, unique=False, nullable=False)
   description = db.Column(db.String(), index=False, unique=False, nullable=False)
+  image_url = db.Column(db.String(), index=False, unique=False, nullable=False)
   url = db.Column(db.String(), index=False, unique=False, nullable=False)
   products = db.relationship('Product', secondary=products, lazy='subquery', backref=db.backref('recipes', lazy=True))
   def __repr__(self):

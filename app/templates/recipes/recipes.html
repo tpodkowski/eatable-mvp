@@ -31,7 +31,7 @@
           <a href="{{ url_for('get_recipe', id=recipe.id)}}">
             <h2>{{ recipe.name }}</h2>
           </a>
-          <img src="{{ recipe.url }}" class="img-thumbnail">
+          <img src="{{ recipe.image_url }}" class="img-thumbnail">
           <p>
             <strong>Składniki:</strong>
             <ul>
@@ -43,7 +43,10 @@
           <p>
             {{ recipe.description }}
           </p>
+          <div>
+            Źródło: <a href={{ recipe.url }} target="_blank">{{ recipe.url }}</a>
           </div>
+        </div>
         {% endfor %}
       </div>
     </div>
