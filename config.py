@@ -8,4 +8,4 @@ class Config:
     FLASK_DEBUG = os.environ["FLASK_DEBUG"]
 
     # Database
-    SQLALCHEMY_DATABASE_URI = os.environ["SQLALCHEMY_DATABASE_URI"]
+    SQLALCHEMY_DATABASE_URI = 'postgres://gvlkwgxs:E4envhZd5EMvB5KSHbPV9n3oeCoRHgpj@hansken.db.elephantsql.com:5432/gvlkwgxs'

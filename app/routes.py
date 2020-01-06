@@ -1,3 +1,4 @@
+from urllib import request
 from flask import current_app as app
 from flask import jsonify, redirect, render_template, request
 
@@ -89,15 +90,50 @@ def get_recipes_by_ingredients():
 
 @app.route('/bmi', methods=['GET','POST'])
 def calculateBMI():
-
   if request.method == 'POST':
     name = request.form['name'],
     height = request.form['height'],
     weight = request.form['weight'],
     sex = request.form['sex']
+    '''
+      bmi = weight / (height * height)
 
-
-
-
+      if (bmi < 16):
+        text = ("severely underweight")
+      elif (bmi >= 16 and bmi < 18.5):
+        text = ("underweight")
+      elif (bmi >= 18.5 and bmi < 25):
+        text = ("Healthy")
+      elif (bmi >= 25 and bmi < 30):
+        text = ("overweight")
+      else:
+        text = ("severely overweight")
+     '''
+    #data = request.form
   return render_template('./bmi/bmi.html')
 
+
+@app.route('/bmr', methods=['GET', 'POST'])
+def calculateBMR():
+  if request.method == 'POST':
+    name = request.form['name'],
+    height = request.form['height'],
+    weight = request.form['weight'],
+    age = request.form['age'],
+    sex = request.form['sex'],
+    activity = request.form['activity']
+
+    data = request.form
+    '''
+    height *= 100
+    if gender == 'F' or gender == 'f':
+        bmr = 655 + (4.35 * weight) + (4.7 * height) - (4.7 * age)
+    elif gender == 'M' or gender == 'm':
+        bmr = (10* weight) + (6.25*height) -(5*age) + 5
+        bmr = bmr * 
+    else:
+        return "You gave wrong value, try again"
+ 
+    https://www.thecalculatorsite.com/articles/health/bmr-formula.php
+    '''
+  return render_template('./bmr/bmr.html')

@@ -19,16 +19,17 @@
         <div class="form-group">
             <label for="select_field">Wybierz płeć</label>
             <select class="form-control" name="sex" id="select_field">
-                <option>Kobieta</option>
-                <option>Mężczyzna</option>
+                <option value="1">Kobieta</option>
+                <option value="2">Mężczyzna</option>
             </select>
         </div>
         <button type="submit" class="btn btn-secondary">Oblicz BMI</button>
     </form>
     </br>
+
     <form action="{{ url_for('calculateBMI') }}" method="GET">
         <div class="form-group">
-            <label for="wynik">Twój wynik:</label>
+            <label for="wynik">Twój wynik: </label>
             <input class="form-control" name="wynik" id="wynik">
         </div>
     </form>
