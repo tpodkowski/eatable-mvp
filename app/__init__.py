@@ -4,9 +4,11 @@ import random
 import numpy as np
 
 db = SQLAlchemy()
+app = Flask(__name__)
 
 def create_app():
-  app = Flask(__name__)
+  app.config["SQLALCHEMY_DATABASE_URI"]='postgres://gvlkwgxs:E4envhZd5EMvB5KSHbPV9n3oeCoRHgpj@hansken.db.elephantsql.com:5432/gvlkwgxs'
+
   app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
   app.config["SQLALCHEMY_ECHO"] = True
 

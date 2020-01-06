@@ -3,7 +3,6 @@ from flask import jsonify, redirect, render_template, request
 
 from .models import Product, Recipe, db
 
-
 @app.route('/', methods=['GET'])
 def entry():
   products = Product.query.all()
@@ -87,3 +86,18 @@ def get_recipes_by_ingredients():
     products = Product.query.all()
 
   return render_template('./ingredients/ingredients.html', products=products, recipes=recipes, title="Eatable - Moja Lodówka")
+
+@app.route('/bmi', methods=['GET','POST'])
+def calculateBMI():
+
+  if request.method == 'POST':
+    name = request.form['name'],
+    height = request.form['height'],
+    weight = request.form['weight'],
+    sex = request.form['sex']
+
+
+
+
+  return render_template('./bmi/bmi.html')
+
