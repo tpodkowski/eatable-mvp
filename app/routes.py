@@ -90,27 +90,24 @@ def get_recipes_by_ingredients():
 
 @app.route('/bmi', methods=['GET','POST'])
 def calculateBMI():
+  text = "severely overweight"
+  bmi = 0
   if request.method == 'POST':
-    name = request.form['name'],
-    height = request.form['height'],
-    weight = request.form['weight'],
-    sex = request.form['sex']
-    '''
-      bmi = weight / (height * height)
+    name = request.form['name']
+    height = float(request.form.get("height"))/100
+    weight = float(request.form.get("weight"))
+    bmi = weight / pow(height, 2)
+    if (bmi < 16):
+      text = ("severely underweight")
+    elif (bmi >= 16 and bmi < 18.5):
+      text = ("underweight")
+    elif (bmi >= 18.5 and bmi < 25):
+      text = ("Healthy")
+    elif (bmi >= 25 and bmi < 30):
+      text = ("overweight")
 
-      if (bmi < 16):
-        text = ("severely underweight")
-      elif (bmi >= 16 and bmi < 18.5):
-        text = ("underweight")
-      elif (bmi >= 18.5 and bmi < 25):
-        text = ("Healthy")
-      elif (bmi >= 25 and bmi < 30):
-        text = ("overweight")
-      else:
-        text = ("severely overweight")
-     '''
     #data = request.form
-  return render_template('./bmi/bmi.html')
+  return render_template('./bmi/bmi.html', bmi=bmi, description=text)
 
 
 @app.route('/bmr', methods=['GET', 'POST'])

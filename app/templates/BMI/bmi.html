@@ -3,6 +3,7 @@
 {% block content %}
 <div class="container">
     <p class="lead">Obliczanie wskaźnika BMI - Body Mass Index</p>
+
     <form action="{{ url_for('calculateBMI') }}" method="POST">
         <div class="form-group">
             <label for="name_field">Imie i nazwisko</label>
@@ -10,11 +11,11 @@
         </div>
         <div class="form-group">
             <label for="height_field">Podaj swój wzrost [cm]</label>
-            <input class="form-control" name="height" id="height_field"></input>
+            <input  type="number" class="form-control" name="height" id="height_field"/>
         </div>
         <div class="form-group">
             <label for="weight_field">Podaj swoją wagę [kg]</label>
-            <input class="form-control" name="weight" id="weight_field">
+            <input type="number" class="form-control" name="weight" id="weight_field"/>
         </div>
         <div class="form-group">
             <label for="select_field">Wybierz płeć</label>
@@ -27,12 +28,14 @@
     </form>
     </br>
 
-    <form action="{{ url_for('calculateBMI') }}" method="GET">
+    {% if bmi > 0 %}
         <div class="form-group">
-            <label for="wynik">Twój wynik: </label>
-            <input class="form-control" name="wynik" id="wynik">
+            <label for="wynik">Twój wynik: {{bmi}}</label>
+            <div>
+                <small>{{description}}</small>
+            </div>
         </div>
-    </form>
+    {% endif %}
 
 </div>
 {% endblock %}
