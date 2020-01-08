@@ -87,3 +87,42 @@ def get_recipes_by_ingredients():
     products = Product.query.all()
 
   return render_template('./ingredients/ingredients.html', products=products, recipes=recipes, title="Eatable - Moja Lodówka")
+
+@app.route('/bmi', methods=['GET','POST'])
+def calculate_bmi():
+  bmi = None
+  
+  if request.method == 'POST':
+    bmi = None
+    height = float(request.form.get("height"))/100
+    weight = float(request.form.get("weight"))
+    bmi = weight / pow(height, 2)
+    bmi = round(bmi, 2)
+
+  return render_template('./bmi/bmi.html', bmi=bmi)
+
+
+@app.route('/bmr', methods=['GET', 'POST'])
+def calculate_bmr():
+  bmr = 0.0
+  activity = 1
+
+  if request.method == 'POST':
+    height = float(request.form.get('height'))
+    weight = float(request.form.get('weight'))
+    age = float(request.form.get('age'))
+    sex = float(request.form.get('sex'))
+    activity = float(request.form.get('activity'))
+
+  #women
+    if sex == 1:
+      bmr = 655 + (9.563 * weight) + (1.85 * height) - (4.676 * age)
+      bmr = bmr * activity
+  #men
+    else:
+      bmr = 66.74 + (13.75 * weight) + (5.003 * height) - (6.755 * age) + 5
+      bmr = bmr * activity
+
+  bmr = round(bmr, 2)
+
+  return render_template('./bmr/bmr.html', bmr=bmr, activity=activity)
