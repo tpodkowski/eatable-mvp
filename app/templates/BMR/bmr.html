@@ -6,30 +6,30 @@
     <form action="{{ url_for('calculateBMR') }}" method="POST">
         <div class="form-group">
             <label for="name_field">Imie i nazwisko</label>
-            <input class="form-control" name="name" id="name_field">
+            <input type="text" class="form-control" name="name" id="name_field">
         </div>
         <div class="form-group">
             <label for="height_field">Podaj swój wzrost [cm]</label>
-            <input class="form-control" name="height" id="height_field"></input>
+            <input type="number" class="form-control" required name="height" id="height_field"></input>
         </div>
         <div class="form-group">
             <label for="weight_field">Podaj swoją wagę [kg]</label>
-            <input class="form-control" name="weight" id="weight_field">
+            <input type="number" class="form-control" required name="weight" id="weight_field">
         </div>
         <div class="form-group">
             <label for="age_field">Podaj swój wiek</label>
-            <input class="form-control" name="age" id="age_field">
+            <input type="number" class="form-control" required name="age" id="age_field">
         </div>
         <div class="form-group">
             <label for="select_field">Wybierz płeć</label>
-            <select class="form-control" name="sex" id="select_field">
+            <select class="form-control" required name="sex" id="select_field">
                 <option value="1">Kobieta</option>
                 <option value="2">Mężczyzna</option>
             </select>
         </div>
         <div class="form-group">
             <label for="activity_field">Aktywność fizyczna</label>
-            <select class="form-control" name="activity" id="activity_field">
+            <select class="form-control" required name="activity" id="activity_field">
                 <option value="1.2">Znikoma(brak ćwiczeń, praca siedząca, szkoła)</option>
                 <option value="1.375">Bardzo mała(ćwiczenia raz na tydzień, praca lekka)</option>
                 <option value="1.55">Umiarkowana(ćwiczenia 2 razy w tygodniu – średniej intensywności)</option>
@@ -41,12 +41,11 @@
     </form>
     </br>
 
-    <form action="{{ url_for('calculateBMR') }}" method="GET">
+    {% if bmr > 0 %}
         <div class="form-group">
-            <label for="wynik">Twój wynik: </label>
-            <input class="form-control" name="wynik" id="wynik">
+            <label for="wynik">Witaj {{name}}, </br> Twoje zapotrzebowanie kaloryczne wynosi: {{bmr}} kcal</label>
         </div>
-    </form>
+    {% endif %}
 
 </div>
 {% endblock %}

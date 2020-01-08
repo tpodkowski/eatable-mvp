@@ -92,11 +92,13 @@ def get_recipes_by_ingredients():
 def calculateBMI():
   text = "severely overweight"
   bmi = 0
+  name = ''
   if request.method == 'POST':
     name = request.form['name']
     height = float(request.form.get("height"))/100
     weight = float(request.form.get("weight"))
     bmi = weight / pow(height, 2)
+
     if (bmi < 16):
       text = ("severely underweight")
     elif (bmi >= 16 and bmi < 18.5):
@@ -106,31 +108,33 @@ def calculateBMI():
     elif (bmi >= 25 and bmi < 30):
       text = ("overweight")
 
-    #data = request.form
-  return render_template('./bmi/bmi.html', bmi=bmi, description=text)
+  bmi = round(bmi,2)
+
+  return render_template('./bmi/bmi.html', bmi=bmi, description=text, name=name)
 
 
 @app.route('/bmr', methods=['GET', 'POST'])
 def calculateBMR():
+  bmr = 0.0
+  name = ''
+  activity = 1
   if request.method == 'POST':
-    name = request.form['name'],
-    height = request.form['height'],
-    weight = request.form['weight'],
-    age = request.form['age'],
-    sex = request.form['sex'],
-    activity = request.form['activity']
+    name = request.form['name']
+    height = float(request.form.get('height'))
+    weight = float(request.form.get('weight'))
+    age = float(request.form.get('age'))
+    sex = float(request.form.get('sex'))
+    activity = float(request.form.get('activity'))
 
-    data = request.form
-    '''
-    height *= 100
-    if gender == 'F' or gender == 'f':
-        bmr = 655 + (4.35 * weight) + (4.7 * height) - (4.7 * age)
-    elif gender == 'M' or gender == 'm':
-        bmr = (10* weight) + (6.25*height) -(5*age) + 5
-        bmr = bmr * 
+#women
+    if sex == 1:
+      bmr = 655 + (9.563 * weight) + (1.85 * height) - (4.676 * age)
+      bmr = bmr * activity
+#men
     else:
-        return "You gave wrong value, try again"
- 
-    https://www.thecalculatorsite.com/articles/health/bmr-formula.php
-    '''
-  return render_template('./bmr/bmr.html')
+      bmr = 66.74 + (13.75 * weight) + (5.003 * height) - (6.755 * age) + 5
+      bmr = bmr * activity
+
+  bmr = round(bmr, 2)
+
+  return render_template('./bmr/bmr.html', bmr=bmr, name=name, activity=activity)
