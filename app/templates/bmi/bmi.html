@@ -1,0 +1,47 @@
+{% extends "./layouts/layout.html" %}
+
+{% block content %}
+<div class="container">
+    <p class="lead">Obliczanie wskaźnika BMI - Body Mass Index</p>
+
+    <form action="{{ url_for('calculate_bmi') }}" method="POST">
+        <div class="form-group">
+            <label for="height_field">Podaj swój wzrost [cm]</label>
+            <input  type="number" class="form-control" required name="height" id="height_field"/>
+        </div>
+        <div class="form-group">
+            <label for="weight_field">Podaj swoją wagę [kg]</label>
+            <input type="number" class="form-control" required name="weight" id="weight_field"/>
+        </div>
+        <div class="form-group">
+            <label for="select_field">Wybierz płeć</label>
+            <select class="form-control" name="sex" id="select_field">
+                <option value="1">Kobieta</option>
+                <option value="2" selected>Mężczyzna</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-secondary">Oblicz BMI</button>
+    </form>
+    </br>
+
+    {% if bmi is not none %}
+      <div class="form-group">
+        <label for="wynik">Twój wynik to: {{bmi}}</label>
+        <div>
+          {% if bmi < 16 %}
+            Ciężka niedowaga
+          {% elif bmi >= 16 and bmi <= 18.5 %}
+            Niedowaga
+          {% elif bmi >= 18.5 and bmi <= 25 %}
+            Zdrowy
+          {% elif bmi >= 25 and bmi <= 30 %}
+            Nadwaga
+          {% elif bmi > 30 %}
+            Otyłość
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+
+</div>
+{% endblock %} 
