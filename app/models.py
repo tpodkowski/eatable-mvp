@@ -1,4 +1,5 @@
 from . import db
+from sqlalchemy.dialects import postgresql
 
 products = db.Table('products',
   db.Column('recipe_id', db.Integer, db.ForeignKey('recipe.id'), primary_key=True),
@@ -8,7 +9,7 @@ products = db.Table('products',
 class Recipe(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   name = db.Column(db.String(), index=True, unique=False, nullable=False)
-  description = db.Column(db.String(), index=False, unique=False, nullable=False)
+  description = db.Column(postgresql.JSON, index=False, unique=False, nullable=False)
   image_url = db.Column(db.String(), index=False, unique=False, nullable=False)
   url = db.Column(db.String(), index=False, unique=False, nullable=False)
   products = db.relationship('Product', secondary=products, lazy='subquery', backref=db.backref('recipes', lazy=True))

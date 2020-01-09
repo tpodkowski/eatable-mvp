@@ -16,13 +16,17 @@ def get_ingredients(soup):
   return ingredients
 
 
-def get_description(soup):
-  description = ""
-  lis = soup.find("div", { "class": "recipe-container-steps" }).find_all("li")
-  for li in lis:
-    description += li.get_text() + " "
-  
-  return description
+def get_steps(soup):
+  steps = []
+  steps_elements = soup.find("div", { "class": "recipe-container-steps" }).find_all("li")
+
+  for step in steps_elements:
+    steps.append({
+      "title": step.find("span", { "class": "step-responsive-header" }).get_text(),
+      "text": step.find("div", { "class": "step-responsive-text" }).get_text(),
+    })
+
+  return steps
 
 
 def fetch_recipes():
@@ -33,6 +37,8 @@ def fetch_recipes():
   has_recipes = os.path.isfile('recipes.dat')
 
   if not has_recipes:
+    print('SCRAPPING STARTED')
+
     for page in range(PAGES_TO_FETCH):
       url_response = requests.get(os.environ["OBIAD_URL"] + str(page))
       page_soup = BeautifulSoup(url_response.text, 'html.parser')
@@ -42,14 +48,13 @@ def fetch_recipes():
         recipe_url = recipe["href"]
         response = requests.get(recipe_url)
         recipe_soup = BeautifulSoup(response.text, 'html.parser')
-        print(recipe.get_text())
         try:
           recipe_obj = {
             "url": recipe_url,
             "name": recipe.get_text(),
             "image_url": get_image_url(recipe_soup),
             "ingredients": get_ingredients(recipe_soup),
-            "description": get_description(recipe_soup)
+            "description": get_steps(recipe_soup)
           }
           recipes.append(recipe_obj)
         except:
