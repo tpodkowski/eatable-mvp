@@ -41,7 +41,17 @@
             </ul>
           </p>
           <p>
-            {{ recipe.description }}
+            <strong>Przygotowanie:</strong>
+            {% for step in recipe.description %}
+              <div>
+                <strong>
+                  {{ step.title }}
+                </strong>
+                <p>
+                  {{ step.text }}
+                </p>
+              </div>
+            {% endfor %}
           </p>
           <div>
             Źródło: <a href={{ recipe.url }} target="_blank">{{ recipe.url }}</a>
