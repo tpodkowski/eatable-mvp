@@ -3,64 +3,29 @@
 {% block content %}
 <div class="container">
   {% include './recipes/add_recipe.html' %}
-  
-  <div class="row">
-    <div class="col-4">
-      <div class="list-group" role="tablist">
-        {% for recipe in recipes %}
-          <a
-            class="list-group-item list-group-item-action {{ 'active' if loop.index == 1}}"
-            id="recipe-{{ recipe.id }}-list"
-            data-toggle="list"
-            href="#recipe-{{ recipe.id }}"
-            role="tab"
-          >
-            {{ recipe.name }}
-          </a>
-        {% endfor %}
-      </div>
-    </div>
-    <div class="col-8">
-      <div class="tab-content">
-        {% for recipe in recipes %}
-        <div
-          class="tab-pane fade show {{ 'active' if loop.index == 1}}"
-          id="recipe-{{ recipe.id }}"
-          role="tabpanel"
-        >
-          <a href="{{ url_for('get_recipe', id=recipe.id)}}">
-            <h2>{{ recipe.name }}</h2>
-          </a>
-          <img src="{{ recipe.image_url }}" class="img-thumbnail">
-          <p>
-            <strong>Składniki:</strong>
-            <ul>
-              {% for product in recipe.products %}
-                <li>{{ product.name }}</li>
-              {% endfor %}
-            </ul>
-          </p>
-          <p>
-            <strong>Przygotowanie:</strong>
-            {% for step in recipe.description %}
-              <div>
-                <strong>
-                  {{ step.title }}
-                </strong>
-                <p>
-                  {{ step.text }}
-                </p>
-              </div>
-            {% endfor %}
-          </p>
-          <div>
-            Źródło: <a href={{ recipe.url }} target="_blank">{{ recipe.url }}</a>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-</div>
 
+  <div class="row">
+    {% for recipe in recipes %}
+      {% if loop.index % 4 == 1 %}
+        <div class="card-group">
+      {% endif %}
+
+      <div class="card" style="margin: 16px">
+        <a href="{{ url_for('get_recipe', id=recipe.id)}}">
+          <img src="{{ recipe.image_url }}" class="card-img-top" >
+        </a>
+        <div class="card-body">
+          <p class="card-title">
+          <a href="{{ url_for('get_recipe', id=recipe.id)}}">
+            {{ recipe.name }}
+            </a>
+          </p>
+        </div>
+      </div>
+
+      {% if loop.index % 4 == 0 %}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
 {% endblock %}
