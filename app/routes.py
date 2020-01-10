@@ -130,6 +130,7 @@ def calculate_bmr():
 @app.route('/bf', methods=['GET', 'POST'])
 def calculate_bf():
   bf = 0.0
+  d = 0.0
 
   if request.method == 'POST':
     sex = float(request.form.get('sex'))
@@ -142,6 +143,6 @@ def calculate_bf():
     else:
       d = (((4.15 * waist) / 2.54) - (0.082 * weight * 2.2)) - 98.42
 
-  bf = round(d / (weight*2.2) * 100, 2)
+    bf = round(d / (weight*2.2) * 100, 2)
 
   return render_template('./bf/bf.html', bf=bf)
