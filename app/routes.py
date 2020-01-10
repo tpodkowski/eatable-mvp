@@ -126,3 +126,22 @@ def calculate_bmr():
   bmr = round(bmr, 2)
 
   return render_template('./bmr/bmr.html', bmr=bmr, activity=activity)
+
+@app.route('/bf', methods=['GET', 'POST'])
+def calculate_bf():
+  bf = 0.0
+
+  if request.method == 'POST':
+    sex = float(request.form.get('sex'))
+    weight = float(request.form.get('weight'))
+    waist = float(request.form.get('waist'))
+
+    if sex == 1:
+      d = (((4.15 * waist) / 2.54) - (0.082 * weight * 2.2)) - 76.76
+
+    else:
+      d = (((4.15 * waist) / 2.54) - (0.082 * weight * 2.2)) - 98.42
+
+  bf = round(d / (weight*2.2) * 100, 2)
+
+  return render_template('./bf/bf.html', bf=bf)

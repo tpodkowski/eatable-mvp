@@ -1,0 +1,33 @@
+{% extends "./layouts/layout.html" %}
+
+{% block content %}
+<div class="container">
+    <p class="lead">Kalkulator zawartości tkanki tłuszczowej w organizmie</p>
+
+    <form action="{{ url_for('calculate_bf') }}" method="POST">
+        <div class="form-group">
+            <label for="select_field">Wybierz płeć</label>
+            <select class="form-control" name="sex" id="select_field">
+                <option value="1">Kobieta</option>
+                <option value="2" selected="">Mężczyzna</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="weight_field">Podaj swoją wagę [kg]</label>
+            <input type="number" class="form-control" required="" name="weight" id="weight_field">
+        </div>
+        <div class="form-group">
+            <label for="waist_field">Podaj swój obwód w pasie [cm]</label>
+            <input type="number" class="form-control" required="" name="waist" id="waist_field">
+        </div>
+        <button type="submit" class="btn btn-secondary">Oblicz BF</button>
+    </form>
+    <br>
+
+      <div class="form-group">
+        <label for="wynik">Twoja zawartość tkanki tłuszczowej w organiźmie wynosi {{bf}} %</label>
+      </div>
+
+</div>
+
+{% endblock %}
