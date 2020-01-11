@@ -18,7 +18,6 @@
             <a href="{{ url_for('get_recipe', id=recipe.id)}}">
               <p class="lead">{{ recipe.name }}</p>
             </a>
-            <p>{{ recipe.description[0:50] }}...</p>
           </div>
         </div>
       {% endfor %}
