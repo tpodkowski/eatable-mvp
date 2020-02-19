@@ -12,13 +12,13 @@
                 <option value="2" selected="">Mężczyzna</option>
             </select>
         </div>
-        <div class="form-group">
+         <div class="form-group">
             <label for="weight_field">Podaj swoją wagę [kg]</label>
-            <input type="number" class="form-control" required="" name="weight" id="weight_field">
+            <input type="number" class="form-control" required="" name="weight" id="weight_field" min=1 max=250>
         </div>
         <div class="form-group">
             <label for="waist_field">Podaj swój obwód w pasie [cm]</label>
-            <input type="number" class="form-control" required="" name="waist" id="waist_field">
+            <input type="number" class="form-control" required="" name="waist" id="waist_field" min=1 max=250>
         </div>
         <button type="submit" class="btn btn-secondary">Oblicz BF</button>
     </form>
