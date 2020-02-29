@@ -1,6 +1,6 @@
 from urllib import request
 from flask import current_app as app
-from flask import jsonify, redirect, render_template, request
+from flask import jsonify, redirect, render_template, request, url_for
 
 from .models import Product, Recipe, db
 
@@ -27,7 +27,7 @@ def add_product():
   )
   db.session.add(product)
   db.session.commit()  
-  return redirect("/products")
+  return redirect(url_for('products'))
 
 
 @app.route('/products/<int:id>', methods=['POST'])
@@ -35,7 +35,7 @@ def remove_product(id):
   product = Product.query.filter_by(id=id).first()
   db.session.delete(product)
   db.session.commit()
-  return redirect("/products")
+  return redirect(url_for('products'))
 
 
 @app.route('/recipes', methods=['GET'])
@@ -60,7 +60,7 @@ def add_recipe():
   db.session.add(recipe)
   db.session.commit()
 
-  return redirect("/recipes")
+  return redirect(url_for('recipes'))
 
 
 @app.route('/recipes/<int:id>', methods=['GET'])
@@ -72,7 +72,7 @@ def get_recipe(id):
   if recipe is not None:
     return render_template("./recipes/recipe.html", recipe=recipe, products=products, title=title)
   else:
-    return redirect('/recipes')
+    return redirect(url_for('recipes'))
 
 
 @app.route('/ingredients', methods=['GET', 'POST'])
