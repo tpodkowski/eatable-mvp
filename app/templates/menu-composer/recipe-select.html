@@ -1,0 +1,7 @@
+<select class="form-control" name="{{ day }}-{{ meal }}">
+  {% for recipe in recipes %}
+  <option value="{{ recipe.id }}">
+    {{ recipe.name }}
+  </option>
+  {% endfor %}
+</select>

@@ -1,8 +1,8 @@
-from flask import current_app as app
-from flask import jsonify, redirect, render_template, request
+from flask import current_app as app, jsonify, redirect, render_template, request
+from sqlalchemy.sql import func
 
-from .models import Product, Recipe, db
-
+from .models import Product, Recipe, recipes_to_products_table, db
+from .common.helpers import get_item_calories
 
 @app.route('/', methods=['GET'])
 def entry():
@@ -146,3 +146,44 @@ def calculate_bf():
     bf = round(d / (weight*2.2) * 100, 2)
 
   return render_template('./bf/bf.html', bf=bf)
+
+@app.route('/menu-composer', methods=['GET', 'POST'])
+def menu_composer():
+  recipes = Recipe.query.join(Recipe.products)
+  calculations = []
+  result = {}
+
+  if request.method == 'POST':
+    form_data = list(request.form.to_dict(flat=True).items())
+    user_meal_plan = list(map(lambda item: {item[0]: item[1]}, list(request.form.to_dict(flat=True).items())))
+    query = db.session.execute("""
+      SELECT
+        id,
+        SUM(calories) as calories
+      FROM
+        (SELECT
+          recipe.id,
+          product.calories
+        FROM recipe AS recipe
+        JOIN recipes_to_products AS recipes_to_products ON recipe.id=recipes_to_products.recipe_id
+        JOIN product AS product ON product.id=recipes_to_products.product_id
+        GROUP BY
+          recipe.id,
+          product.calories
+        ORDER BY recipe.id) AS Calories
+      GROUP BY id
+    """)
+    recipes_calories = [dict(row) for row in query]
+
+    for item in form_data:
+      day = item[0].split('-')[0]
+      recipe_id = int(item[1])
+      
+      if day in result:
+        result[str(day)] = result[str(day)] + get_item_calories(recipe_id, recipes_calories)
+      else:
+        result[str(day)] = get_item_calories(recipe_id, recipes_calories)
+
+    calculations = list(result.values())
+
+  return render_template('./menu-composer/index.html', recipes=recipes, calculations=calculations)
