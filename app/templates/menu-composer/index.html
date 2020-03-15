@@ -1,0 +1,67 @@
+{% extends "./layouts/layout.html" %}
+
+{% set week_days=['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'] %}
+{% set meals=[{
+    'key': 'breakfast',
+    'label': 'Śniadanie'
+  }, {
+    'key': 'breakfast2',
+    'label': 'II Śniadanie'
+  }, {
+    'key': 'dinner',
+    'label': 'Obiad'
+  }, {
+    'key': 'supper',
+    'label': 'Kolacja'
+  }]
+%}
+
+{% block content %}
+  <div class="container-fluid">
+    <h1>Kompozytor menu</h1>
+    <form action="{{ url_for('menu_composer') }}" method="POST">
+      {{ calculations }}
+      <table class="table table-borderless table-responsive">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            {% for day in week_days %}
+              <th scope="col">{{ day }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for meal in meals %}
+          {% set mealIndex = loop.index%}
+            <tr>
+              <th scope="row">{{ meal['label'] }}</th>
+              {% for day in week_days %}
+              {% set dayIndex = loop.index %}
+                <td>
+                  {% with recipes=recipes, day=dayIndex, meal=mealIndex %}
+                    {% include './menu-composer/recipe-select.html' %}
+                  {% endwith %}
+                </td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+          {% if calculations %}
+            <tr>
+              <th scope="row">Suma: </th>
+              {% for calculation in calculations %}
+                <td>
+                  {{ calculation }} kcal
+                </td>
+              {% endfor %}
+            </tr>
+          {% endif %}
+        </tbody>
+      </table>
+      <button type="submit" class="btn btn-primary">
+        Przelicz
+      </button>
+    </form>
+
+
+  </div>
+{% endblock %}

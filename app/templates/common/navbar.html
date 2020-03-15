@@ -6,34 +6,40 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="{{ url_for('get_recipes_by_ingredients') }}">
           Moja Lodówka
         </a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="{{ url_for('get_recipes') }}">
           Przepisy
         </a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="{{ url_for('get_products') }}">
           Produkty
         </a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="{{ url_for('calculate_bmi') }}">
-          BMI
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Kalkulatory
         </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{{ url_for('calculate_bmi') }}">
+            BMI
+          </a>
+          <a class="dropdown-item" href="{{ url_for('calculate_bmr') }}">
+            BMR
+          </a>
+          <a class="dropdown-item" href="{{ url_for('calculate_bf') }}">
+            Body Fat
+          </a>
+        </div>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="{{ url_for('calculate_bmr') }}">
-          BMR
-        </a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="{{ url_for('calculate_bf') }}">
-          BF
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('menu_composer') }}">
+          Kompozytor menu
         </a>
       </li>
     </ul>
