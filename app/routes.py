@@ -1,5 +1,4 @@
-from flask import current_app as app
-from flask import jsonify, redirect, render_template, request
+from flask import current_app as app, jsonify, redirect, render_template, request
 from sqlalchemy.sql import func
 
 from .models import Product, Recipe, recipes_to_products_table, db
@@ -186,6 +185,5 @@ def menu_composer():
         result[str(day)] = get_item_calories(recipe_id, recipes_calories)
 
     calculations = list(result.values())
-    return jsonify(calculations)
 
   return render_template('./menu-composer/index.html', recipes=recipes, calculations=calculations)
