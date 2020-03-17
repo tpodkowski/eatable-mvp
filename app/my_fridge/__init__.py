@@ -1,0 +1,1 @@
+from app.my_fridge.my_fridge import *

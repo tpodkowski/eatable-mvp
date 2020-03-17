@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="{{ url_for('entry') }}">Eatable</a>
+  <a class="navbar-brand" href="{{ url_for('homepage_bp.entry') }}">Eatable</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -7,17 +7,17 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('get_recipes_by_ingredients') }}">
+       <a class="nav-link" href="{{ url_for('my_fridge_bp.get_recipes_by_ingredients') }}">
           Moja Lodówka
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('get_recipes') }}">
+        <a class="nav-link" href="{{ url_for('recipes_bp.get_recipes') }}">
           Przepisy
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('get_products') }}">
+        <a class="nav-link" href="{{ url_for('products_bp.get_products') }}">
           Produkty
         </a>
       </li>
@@ -26,19 +26,19 @@
           Kalkulatory
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{{ url_for('calculate_bmi') }}">
+          <a class="dropdown-item" href="{{ url_for('calculators_bp.calculate_bmi') }}">
             BMI
           </a>
-          <a class="dropdown-item" href="{{ url_for('calculate_bmr') }}">
+          <a class="dropdown-item" href="{{ url_for('calculators_bp.calculate_bmr') }}">
             BMR
           </a>
-          <a class="dropdown-item" href="{{ url_for('calculate_bf') }}">
+          <a class="dropdown-item" href="{{ url_for('calculators_bp.calculate_bf') }}">
             Body Fat
           </a>
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('menu_composer') }}">
+        <a class="nav-link" href="{{ url_for('menu_composer_bp.menu_composer') }}">
           Kompozytor menu
         </a>
       </li>

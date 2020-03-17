@@ -4,7 +4,7 @@
 <div class="container">
     <p class="lead">Kalkulator zawartości tkanki tłuszczowej w organizmie</p>
 
-    <form action="{{ url_for('calculate_bf') }}" method="POST">
+    <form action="{{ url_for('calculators_bp.calculate_bf') }}" method="POST">
         <div class="form-group">
             <label for="select_field">Wybierz płeć</label>
             <select class="form-control" name="sex" id="select_field">

@@ -60,3 +60,9 @@ body::before {
 .navbar-brand {
   font-family: 'Pacifico', cursive;
 }
+
+.products-list {
+  position: relative;
+  max-height: 350px;
+  overflow-y: auto;
+}

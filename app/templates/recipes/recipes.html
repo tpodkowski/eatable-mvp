@@ -1,8 +1,8 @@
-{% extends "./layouts/layout.html" %}
+{% extends "layouts/layout.html" %}
 
 {% block content %}
 <div class="container">
-  {% include './recipes/add_recipe.html' %}
+  {% include 'recipes/add_recipe.html' %}
 
   <div class="row">
     {% for recipe in recipes %}
@@ -11,12 +11,12 @@
       {% endif %}
 
       <div class="card" style="margin: 16px">
-        <a href="{{ url_for('get_recipe', id=recipe.id)}}">
+        <a href="{{ url_for('recipes_bp.get_recipe', id=recipe.recipe_id)}}">
           <img src="{{ recipe.image_url }}" class="card-img-top" >
         </a>
         <div class="card-body">
           <p class="card-title">
-          <a href="{{ url_for('get_recipe', id=recipe.id)}}">
+          <a href="{{ url_for('recipes_bp.get_recipe', id=recipe.recipe_id)}}">
             {{ recipe.name }}
             </a>
           </p>

@@ -1,4 +1,4 @@
-{% extends "./layouts/layout.html" %}
+{% extends "layouts/layout.html" %}
 
 {% block content %}
 
@@ -15,7 +15,7 @@
             <img src="{{ recipe.image_url }}" class="img-thumbnail">
           </div>
           <div class="col-md-10">
-            <a href="{{ url_for('get_recipe', id=recipe.id)}}">
+            <a href="{{ url_for('recipes_bp.get_recipe', id=recipe.recipe_id)}}">
               <p class="lead">{{ recipe.name }}</p>
             </a>
           </div>
@@ -25,19 +25,19 @@
     <p class="lead">
       Wybierz produkty, które masz w swojej lodówce, a otrzymasz przepis na danie, które z nich przygotujesz:
     </p>
-    <form action="{{ url_for('get_recipes_by_ingredients') }}" method="POST">
+    <form action="{{ url_for('my_fridge_bp.get_recipes_by_ingredients') }}" method="POST">
       <div class="form-check">
-        <ul>
+        <ul class="products-list">
           {% for product in products %}
             <li>
               <input
                 type="checkbox"
                 class="form-check-input"
                 name="products"
-                value="{{ product.id }}"
-                id="{{ product.id }}_field"
+                value="{{ product.product_id }}"
+                id="{{ product.product_id }}_field"
               />
-              <label for="{{ product.id }}_field">{{ product.name }}</label>
+              <label for="{{ product.product_id }}_field">{{ product.name }}</label>
             </li>
           {% endfor %}
         </ul>

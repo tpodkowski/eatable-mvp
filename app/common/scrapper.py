@@ -37,8 +37,6 @@ def fetch_recipes():
   has_recipes = os.path.isfile('recipes.dat')
 
   if not has_recipes:
-    print('SCRAPPING STARTED')
-
     for page in range(PAGES_TO_FETCH):
       url_response = requests.get(os.environ["OBIAD_URL"] + str(page))
       page_soup = BeautifulSoup(url_response.text, 'html.parser')

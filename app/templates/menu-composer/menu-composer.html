@@ -19,7 +19,7 @@
 {% block content %}
   <div class="container-fluid">
     <h1>Kompozytor menu</h1>
-    <form action="{{ url_for('menu_composer') }}" method="POST">
+    <form action="{{ url_for('menu_composer_bp.menu_composer') }}" method="POST">
       <table class="table table-borderless table-responsive">
         <thead>
           <tr>
@@ -38,7 +38,7 @@
               {% set dayIndex = loop.index %}
                 <td>
                   {% with recipes=recipes, day=dayIndex, meal=mealIndex %}
-                    {% include './menu-composer/recipe-select.html' %}
+                    {% include 'menu-composer/recipe-select.html' %}
                   {% endwith %}
                 </td>
               {% endfor %}

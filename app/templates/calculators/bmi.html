@@ -4,7 +4,7 @@
 <div class="container">
     <p class="lead">Obliczanie wskaźnika BMI - Body Mass Index</p>
 
-    <form action="{{ url_for('calculate_bmi') }}" method="POST">
+    <form action="{{ url_for('calculators_bp.calculate_bmi') }}" method="POST">
         <div class="form-group">
             <label for="height_field">Podaj swój wzrost [cm]</label>
             <input  type="number" class="form-control" required name="height" id="height_field" min=60 max=250/>
