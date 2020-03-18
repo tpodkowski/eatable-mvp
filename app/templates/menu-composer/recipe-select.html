@@ -1,7 +1,15 @@
 <select class="form-control" name="{{ day }}-{{ meal }}">
-  {% for recipe in recipes %}
-  <option value="{{ recipe.recipe_id }}">
-    {{ recipe.name }}
+  <option selected hidden value="-1">
+    Wybierz przepis...
   </option>
+
+  {% for recipe in recipes %}
+    {% if recipe.recipe_id|int == value|int %}
+      <option value="{{ recipe.recipe_id }}" selected>
+    {% else %}
+      <option value="{{ recipe.recipe_id }}" >
+    {% endif %}
+        {{ recipe.name }}
+      </option>
   {% endfor %}
 </select>

@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import random
 import numpy as np
+import os
 
 db = SQLAlchemy()
 
@@ -11,6 +12,7 @@ def create_app():
 
   app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
   app.config["SQLALCHEMY_ECHO"] = True
+  app.config['SECRET_KEY'] = os.environ["SECRET_KEY"]
 
   db.init_app(app)
   app.config.from_object('config.Config')

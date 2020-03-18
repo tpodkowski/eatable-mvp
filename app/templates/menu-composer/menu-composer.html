@@ -37,7 +37,9 @@
               {% for day in week_days %}
               {% set dayIndex = loop.index %}
                 <td>
-                  {% with recipes=recipes, day=dayIndex, meal=mealIndex %}
+                  {% set value = form[[dayIndex, mealIndex]|join('-')] if form else -1 %}
+                               
+                  {% with recipes=recipes, day=dayIndex, meal=mealIndex, value=value %}
                     {% include 'menu-composer/recipe-select.html' %}
                   {% endwith %}
                 </td>
