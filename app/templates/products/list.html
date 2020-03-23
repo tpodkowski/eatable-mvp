@@ -1,8 +1,8 @@
-{% extends "./layouts/layout.html" %}
+{% extends "layouts/layout.html" %}
 
 {% block content %}
   <div class="container">
-    {% include './products/add_product_form.html' %}
+    {% include 'products/add_product_form.html' %}
     
     <p class="lead">Produkty</p>
     <div class="col-md-12">
@@ -26,7 +26,7 @@
               <td>{{ product.carbohydrates }}g</td>
               <td>{{ product.fat }}g</td>
               <td>
-                <form action="{{ url_for('remove_product', id=product.id) }}" method="POST">
+                <form action="{{ url_for('products_bp.remove_product', id=product.product_id) }}" method="POST">
                   <button type="submit" class="btn btn-danger">Usuń</button>
                 </form>
             </tr>

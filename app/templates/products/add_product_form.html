@@ -3,7 +3,7 @@
     Dodawanie produktu
   </button>
   <div class="col-md-12 collapse" id="addProduct">
-    <form action="{{ url_for('add_product') }}" method="POST">
+    <form action="{{ url_for('products_bp.add_product') }}" method="POST">
       <div class="form-group">
         <label for="name_field">Nazwa produktu</label>
         <input class="form-control" name="name" id="name_field" placeholder="Nazwa">
