@@ -6,23 +6,23 @@
     <form action="{{ url_for('products_bp.add_product') }}" method="POST">
       <div class="form-group">
         <label for="name_field">Nazwa produktu</label>
-        <input class="form-control" name="name" id="name_field" placeholder="Nazwa">
+        <input class="form-control" name="name" id="name_field" required placeholder="Nazwa">
       </div>
       <div class="form-group">
         <label for="calories_field">Kalorie</label>
-        <input class="form-control" name="calories" id="calories_field" placeholder="Kalorie">
+        <input type="number" class="form-control" name="calories" id="calories_field" required placeholder="Kalorie">
       </div>
       <div class="form-group">
         <label for="protein_field">Białko</label>
-        <input class="form-control" name="protein" id="protein_field" placeholder="Białko">
+        <input type="number" class="form-control" name="protein" id="protein_field" required placeholder="Białko">
       </div>
       <div class="form-group">
         <label for="carbohydrates_field">Węglowodany</label>
-        <input class="form-control" name="carbohydrates" id="carbohydrates_field" placeholder="Węglowodany">
+        <input type="number" class="form-control" name="carbohydrates" id="carbohydrates_field" required placeholder="Węglowodany">
       </div>
       <div class="form-group">
         <label for="fat_field">Tłuszcz</label>
-        <input class="form-control" name="fat" id="fat_field" placeholder="Tłuszcz">
+        <input type="number" class="form-control" name="fat" id="fat_field" required placeholder="Tłuszcz">
       </div>
       <button type="submit" class="btn btn-block btn-primary">Dodaj produkt</button>
     </form>

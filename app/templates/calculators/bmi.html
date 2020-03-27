@@ -7,11 +7,11 @@
     <form action="{{ url_for('calculators_bp.calculate_bmi') }}" method="POST">
         <div class="form-group">
             <label for="height_field">Podaj swój wzrost [cm]</label>
-            <input  type="number" class="form-control" required name="height" id="height_field" min=60 max=250/>
+            <input  type="number" class="form-control" required name="height" id="height_field" min=60 max=250 />
         </div>
         <div class="form-group">
             <label for="weight_field">Podaj swoją wagę [kg]</label>
-            <input type="number" class="form-control" required name="weight" id="weight_field" min=1 max=250/>
+            <input type="number" class="form-control" required name="weight" id="weight_field" min=1 max=250 />
         </div>
         <div class="form-group">
             <label for="select_field">Wybierz płeć</label>
