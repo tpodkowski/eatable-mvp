@@ -9,13 +9,13 @@ db = SQLAlchemy()
 
 def create_app():
   app = Flask(__name__)
+  app.config.from_object('config.Config')
 
   app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
   app.config["SQLALCHEMY_ECHO"] = True
   app.config['SECRET_KEY'] = os.environ["SECRET_KEY"]
-
+  
   db.init_app(app)
-  app.config.from_object('config.Config')
 
   with app.app_context():
     from app.models.models import Product, Recipe
