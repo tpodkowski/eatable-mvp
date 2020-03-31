@@ -66,3 +66,7 @@ body::before {
   max-height: 350px;
   overflow-y: auto;
 }
+
+.card-group >.card {
+  max-width: calc(25% - 32px);
+}
