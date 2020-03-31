@@ -12,7 +12,7 @@ def get_ingredients(soup):
   ingredients = []
   lis = soup.find("div", { "class": "ingredients" }).find_all("li")
   for li in lis:
-    ingredients.append(li.get_text())
+    ingredients.append(li.get_text().split('-')[0])
 
   return ingredients
 
@@ -66,16 +66,14 @@ def fetch_recipes():
             "ingredients": get_ingredients(static_page_soup),
             "description": get_steps(static_page_soup)
           }
-          print(recipe_obj)
+          print(recipe.get_text())
           recipes.append(recipe_obj)
         except:
           error_count += 1
           print("[ERROR] " + recipe_url)    
-    
     with open('recipes.dat', 'w') as json_file:
       json.dump(recipes, json_file)
     print("\nSuccesfuly added: " + str(len(recipes)) + ", " + str(error_count) + " skipped\n")
   else:
     recipes = json.loads(open('recipes.dat', 'r').read())
-  
   return recipes
