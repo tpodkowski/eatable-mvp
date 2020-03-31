@@ -17,16 +17,20 @@
     </p>
     <p>
       <strong>Przygotowanie:</strong>
-      {% for step in recipe.description %}
-        <div>
-          <strong>
-            {{ step.title }}
-          </strong>
-          <p>
-            {{ step.text }}
-          </p>
-        </div>
-      {% endfor %}
+      {% if recipe.description is iterable and recipe.description is not string %}
+        {% for step in recipe.description %}
+          <div>
+            <strong>
+              {{ step.title }}
+            </strong>
+            <p>
+              {{ step.text }}
+            </p>
+          </div>
+        {% endfor %}
+      {% else %}
+        {{recipe.description}}
+      {% endif %}
     </p>
     <div>
       Źródło: <a href={{ recipe.url }} target="_blank">{{ recipe.url }}</a>
